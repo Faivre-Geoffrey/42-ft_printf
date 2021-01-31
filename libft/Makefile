@@ -83,3 +83,5 @@ bonus: $(OBJSB)
 	$(CC) $(SRCS) $(SRCSB) $(CC_FLAGS)
 	ar r $(NAME) $(OBJSB)
 
+.PHONY: all clean fclean re 
+

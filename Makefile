@@ -21,6 +21,11 @@ SURPL_O = 	ft_printf.o \
 			ft_treat_c.o \
 			ft_treat_i.o \
 			ft_treat_s.o \
+			ft_treat_u.o \
+			ft_treat_x.o \
+			ft_treat_X1.o \
+			ft_treat_per.o \
+			ft_treat_p.o \
 
 CC = gcc
 
