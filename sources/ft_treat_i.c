@@ -42,6 +42,8 @@ void ft_treat_i_wildcard(int space,int arg2,t_struct *struct_pf)
 		struct_pf->print_count++;
 		i++;
 	}
+	if (x++ == 0)
+			ft_putstr_fd(ft_itoa(arg2), 1);
 }
 
 void	ft_treat_i_return(int nb, t_struct *struct_pf)

@@ -79,7 +79,8 @@ void ft_treat_per(t_struct *struct_pf);
 void	ft_treat_per_return(t_struct *struct_pf);
 
 void	ft_treat_p(unsigned long long ull, t_struct *struct_pf);
-/* void	ft_treat_p_return(unsigned long long ull, t_struct *struct_pf); */
+void	ft_treat_p_return(unsigned long long ull, t_struct *struct_pf);
+void	ft_treat_p_wildcard(int space,unsigned long long ull,t_struct *struct_pf);
 
 void ft_space(t_struct *struct_pf);
 

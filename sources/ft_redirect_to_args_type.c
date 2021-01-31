@@ -16,9 +16,11 @@ void	ft_redirect_to_args_type(va_list args, t_struct *struct_pf)
 {
 	if (struct_pf->type == 'p')
 	{
-		/* if (struct_pf->num1 && struct_pf->num2 && struct_pf->minus)
+		if (struct_pf->wildcard)
+			ft_treat_p_wildcard(va_arg(args, int),va_arg(args, unsigned long long),struct_pf);
+		else if (struct_pf->num1 && struct_pf->num2 && struct_pf->minus)
 			ft_treat_p_return(va_arg(args, unsigned long long), struct_pf);
-		else */ 
+		else 
 			ft_treat_p(va_arg(args, unsigned long long), struct_pf);
 	}
 	if (struct_pf->type == '%')
