@@ -1,8 +1,7 @@
 #include "ft_printf.h"
-#define PRINT ("[%p]",str)
+#define PRINT ("%-07i]",-54)
 int main(void)
 {
-	char *str = malloc(sizeof(char) * 2);
 	ft_printf PRINT;
 	printf("\n");
 	printf PRINT;

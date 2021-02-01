@@ -32,7 +32,7 @@ void	ft_treat_s_return(char *str, t_struct *struct_pf)
 	min_size_or_num2 = ft_min(size, struct_pf->num2);
 
 	
-/* 	printf("\nstruct_pf->minus =	%i\n", struct_pf->minus);
+	/* printf("\nstruct_pf->minus =	%i\n", struct_pf->minus);
 	printf("struct_pf->zero =	%i\n", struct_pf->zero);
 	printf("struct_pf->wildcard = 	%i\n", struct_pf->wildcard);
 	printf("struct_pf->point_1 =	%i\n", struct_pf->point_1);
@@ -43,7 +43,7 @@ void	ft_treat_s_return(char *str, t_struct *struct_pf)
 	printf("max_size_or_num2 = 	%i\n", max_size_or_num2);
 	printf("min_size_or_num2 = 	%i\n", min_size_or_num2); */
 
-	 while (struct_pf->point_2 == 1 && struct_pf->num2 && i < struct_pf->num2 && allprint == 0 && size != 0 && str[i])
+	 while (struct_pf->point_2 == 1 && struct_pf->num2 && i < struct_pf->num2 && size != 0 && str[i])
 	{
 		ft_putchar_fd(str[i], 1);
 		i++;
@@ -128,6 +128,17 @@ void	ft_treat_s(char *str, t_struct *struct_pf)
 	size_or_num2[1] = ft_max(size, struct_pf->num2);
 	if (struct_pf->point_1 == 1 && struct_pf->num1 == -1)
 		allprint = 1;
+
+
+	/* printf("\nstruct_pf->minus =	%i\n", struct_pf->minus);
+	printf("struct_pf->zero =	%i\n", struct_pf->zero);
+	printf("struct_pf->wildcard = 	%i\n", struct_pf->wildcard);
+	printf("struct_pf->point_1 =	%i\n", struct_pf->point_1);
+	printf("struct_pf->point_2 =	%i\n", struct_pf->point_2); 
+	printf("struct_pf->num1 = 	%i\n", struct_pf->num1);
+	printf("struct_pf->num2 = 	%i\n", struct_pf->num2);
+	printf("struct_pf->type = 	%c\n", struct_pf->type); */
+
 	while (struct_pf->point_1 && struct_pf->num1 > 0 && str[i] && allprint == 0)
 	{
 		ft_putchar_fd(str[i], 1);

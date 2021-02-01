@@ -12,39 +12,6 @@
 
 #include "../ft_printf.h"
 
-void ft_treat_i_wildcard(int space,int arg2,t_struct *struct_pf)
-{
-	int i;
-	int sizearg2;
-	int x;
-
-	i = 0;
-	x = 0;
-	if (struct_pf->wildcard && space < 0)
-	{
-		space *= -1;
-		struct_pf->minus = 1;
-	}
-	sizearg2 = ft_strlen(ft_itoa(arg2));
-	while (i < space - sizearg2 && struct_pf->minus == 0)
-	{
-		ft_putchar_fd(' ',1);
-		struct_pf->print_count++;
-		i++;
-		if (x++ == 0)
-			ft_putstr_fd(ft_itoa(arg2), 1);
-	}
-	while (i < space - sizearg2 && struct_pf->minus)
-	{
-		if (x++ == 0)
-			ft_putstr_fd(ft_itoa(arg2), 1);
-		ft_putchar_fd(' ',1);
-		struct_pf->print_count++;
-		i++;
-	}
-	if (x++ == 0)
-			ft_putstr_fd(ft_itoa(arg2), 1);
-}
 
 void	ft_treat_i_return(int nb, t_struct *struct_pf)
 {
@@ -67,6 +34,15 @@ void	ft_treat_i_return(int nb, t_struct *struct_pf)
 	str= ft_itoa(nb);
 	size = ft_strlen(str);
 	max_size_or_num2 = ft_max(size, struct_pf->num2);
+
+		printf("\nstruct_pf->minus =	%i\n", struct_pf->minus);
+	printf("struct_pf->zero =	%i\n", struct_pf->zero);
+	printf("struct_pf->wildcard = 	%i\n", struct_pf->wildcard);
+	printf("struct_pf->point_1 =	%i\n", struct_pf->point_1);
+	printf("struct_pf->point_2 =	%i\n", struct_pf->point_2); 
+	printf("struct_pf->num1 = 	%i\n", struct_pf->num1);
+	printf("struct_pf->num2 = 	%i\n", struct_pf->num2);
+	printf("struct_pf->type = 	%c\n", struct_pf->type);
 	if (struct_pf->nbisneg && struct_pf->point_2 )
 	{
 		ft_putchar_fd('-', 1);

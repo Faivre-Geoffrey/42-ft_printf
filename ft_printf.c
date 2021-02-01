@@ -26,7 +26,7 @@ void ft_set_struct(t_struct *struct_pf)
 
 }
 
-void ft_makeflags1(t_struct *struct_pf,char c)
+void ft_makeflags1(va_list args, t_struct *struct_pf,char c)
 {
 	if (c == '-')
 		struct_pf->minus = 1;
@@ -35,9 +35,12 @@ void ft_makeflags1(t_struct *struct_pf,char c)
 	if (c == '.')
 		struct_pf->point_1 = 1;
 	if (c == '*')
+	{
+		struct_pf->num1 = va_arg(args, int);
 		struct_pf->wildcard = 1;
+	}
 }
-void ft_makeflags2(t_struct *struct_pf,char c)
+void ft_makeflags2(va_list args, t_struct *struct_pf,char c)
 {
 	if (c == '-')
 		struct_pf->minus = 1;
@@ -46,7 +49,10 @@ void ft_makeflags2(t_struct *struct_pf,char c)
 	if (c == '.')
 		struct_pf->point_2 = 1;
 	if (c == '*')
+	{
+		struct_pf->num2 = va_arg(args, int);
 		struct_pf->wildcard = 1;
+	}
 }
 int ft_strzero(char *str)
 {
@@ -62,27 +68,36 @@ int ft_strzero(char *str)
 	return (0);
 }
 
-int ft_make_args(char *str, t_struct *struct_pf)
+int ft_make_args(va_list args, char *str, t_struct *struct_pf)
 {
 	int i;
 	int j;
 	int g;
 	char num_save1[15];
 	char num_save2[15];
+	int xz[2];
 
 	i = 1;
 	j = 0;
 	g = 0;
+	xz[0] = 0;
+	xz[1] = 0;
 	ft_memset(num_save1,'\0',14);
 	ft_memset(num_save2,'\0',14);
 	if (!(ft_isdigit(str[i])) && !(ft_isflags(str[i])) && !(ft_istype(str[i])))
 		return (1);
 	while ((ft_isflags(str[i]) && !(str[i] == '0' && str[i - 1] == '.')))
 	{
-		ft_makeflags1(struct_pf,str[i]);
+		ft_makeflags1(args, struct_pf,str[i]);
+		if (str[i] == '*')
+		{
+			xz[0] = 1;
+			i++;
+			break;
+		}
 		i++;
 	}
-	while (ft_isdigit(str[i])/* && !(str[i] == '0' && str[i - 1] == '.') */)
+	while (ft_isdigit(str[i]) && xz[0] == 0)
 	{
 		num_save1[g] = str[i];
 		i++;
@@ -92,14 +107,20 @@ int ft_make_args(char *str, t_struct *struct_pf)
 	}
 	while ((ft_isflags(str[i]) && !(str[i] == '0' && str[i - 1] == '.')))
 	{
-		ft_makeflags2(struct_pf,str[i]);
+		ft_makeflags2(args, struct_pf,str[i]);
+		if (str[i] == '*')
+		{
+			xz[1] = 1;
+			i++;
+			break;
+		}
 		i++;
 	}
-	if (!(ft_isdigit(str[i])) && !(ft_istype(str[i])))
+	/* if (!(ft_isdigit(str[i])) && !(ft_istype(str[i])))
 	{
 		return (1);
-	}
-	while (ft_isdigit(str[i]))
+	} */
+	while (ft_isdigit(str[i]) && xz[1] == 0)
 	{
 		num_save2[j] = str[i];
 		i++;
@@ -114,6 +135,21 @@ int ft_make_args(char *str, t_struct *struct_pf)
 	if (ft_strzero(num_save2))
 	struct_pf->num2 = ft_atoi(num_save2);
 	i++;
+
+	if (struct_pf->num1 < -1)
+	{
+		struct_pf->num1 *= -1;
+		struct_pf->minus = 1;
+		if (struct_pf->point_1)
+		{
+			struct_pf->num1 = -1;
+		}
+	}
+	if (struct_pf->num2 < -1)
+	{
+		struct_pf->num2 = -1;
+		struct_pf->point_2 = 0;
+	}
 	/* printf("\nstruct_pf->minus =	%i\n", struct_pf->minus);
 	printf("struct_pf->zero =	%i\n", struct_pf->zero);
 	printf("struct_pf->point1 =	%i\n", struct_pf->point_1);
@@ -132,7 +168,7 @@ void ft_treat_str(char *str, va_list args, t_struct *struct_pf)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] == '%' && (i += ft_make_args(str + i, struct_pf)))
+		if (str[i] == '%' && (i += ft_make_args(args, str + i, struct_pf)))
 		{
 			ft_redirect_to_args_type(args, struct_pf);
 			ft_set_struct(struct_pf);
