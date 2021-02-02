@@ -83,54 +83,6 @@ void    ft_putnbr_base_ull(unsigned long nb, char *base)
 /**************************************************************************/
 
 
-void ft_treat_p_wildcard(int space,unsigned long long ull,t_struct *struct_pf)
-{
-	int i;
-	int size;
-	int x;
-
-	i = 0;
-	x = 0;
-	if (struct_pf->wildcard && space < 0)
-	{
-		space *= -1;
-		struct_pf->minus = 1;
-	}
-	size = ft_countnbr_base_ull(ull, "0123456789abcdef") + 2;
-	if (ull == 0)
-	size = 3;
-	while (i < space - size && struct_pf->minus == 0)
-	{
-		ft_putchar_fd(' ',1);
-		struct_pf->print_count++;
-		i++;
-		if (x++ == 0)
-		{
-			ft_putstr_fd("0x",1);
-			ft_putnbr_base_ull(ull, "0123456789abcdef");
-			struct_pf->print_count +=  size;
-		}
-	}
-	while (i < space - size && struct_pf->minus)
-	{
-		if (x++ == 0)
-		{
-			ft_putstr_fd("0x",1);
-			ft_putnbr_base_ull(ull, "0123456789abcdef");
-			struct_pf->print_count +=  size;
-		}
-		ft_putchar_fd(' ',1);
-		struct_pf->print_count++;
-		i++;
-	}
-	if (x++ == 0)
-		{
-			ft_putstr_fd("0x",1);
-			ft_putnbr_base_ull(ull, "0123456789abcdef");
-			struct_pf->print_count +=  size;
-		}
-
-}
 
 void	ft_treat_p_return(unsigned long long ull, t_struct *struct_pf)
 {

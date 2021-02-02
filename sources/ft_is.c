@@ -45,11 +45,13 @@ void ft_ifisneg(int *nb, t_struct *struct_pf)
 	*nb *= -1;
 	struct_pf->nbisneg = 1;
 
+
 }
 void ft_ifisneg_u(unsigned int *nb, t_struct *struct_pf)
 {
 	*nb *= -1;
 	struct_pf->nbisneg = 1;
+		
 
 }
 
@@ -61,6 +63,7 @@ int ft_printfstr(char *str, int i, t_struct *struct_pf)
 		struct_pf->print_count++;
 		i++;
 	}
+
 	return (i);
 }
 

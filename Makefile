@@ -29,7 +29,7 @@ SURPL_O = 	ft_printf.o \
 
 CC = gcc
 
-FLAGS = -c -Wall -Wextra -Werror
+FLAGS = -c #-Wall -Wextra -Werror
 
 INCLUDES = ft_printf.h
 
