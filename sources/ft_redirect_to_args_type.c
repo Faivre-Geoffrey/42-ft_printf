@@ -45,7 +45,7 @@ void	ft_redirect_to_args_type(va_list args, t_struct *struct_pf)
 	}
 	if (struct_pf->type == 'i' || struct_pf->type == 'd')
 	{
-		if (struct_pf->num1 && struct_pf->num2 && struct_pf->minus)
+		if ((struct_pf->num1 && struct_pf->num2 && struct_pf->minus) || (struct_pf->num1 && struct_pf->num2 > -1 && struct_pf->minus && struct_pf->wildcard))
 			ft_treat_i_return(va_arg(args, int), struct_pf);
 		else
 			ft_treat_i(va_arg(args,int), struct_pf);
