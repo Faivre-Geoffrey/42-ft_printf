@@ -12,37 +12,6 @@
 
 #include "../ft_printf.h"
 
- void ft_treat_u_wildcard(unsigned int space,unsigned int arg2,t_struct *struct_pf)
-{
-	unsigned int i;
-	int sizearg2;
-	int x;
-
-	i = 0;
-	x = 0;
-	if (struct_pf->wildcard && space < 0)
-	{
-		space *= -1;
-		struct_pf->minus = 1;
-	}
-	sizearg2 = ft_strlen(ft_itoa(arg2));
-	while (i < space - sizearg2 && struct_pf->minus == 0)
-	{
-		ft_putchar_fd(' ',1);
-		struct_pf->print_count++;
-		i++;
-		if (x++ == 0)
-			ft_putstr_fd(ft_itoa(arg2), 1);
-	}
-	while (i < space - sizearg2 && struct_pf->minus)
-	{
-		if (x++ == 0)
-			ft_putstr_fd(ft_itoa(arg2), 1);
-		ft_putchar_fd(' ',1);
-		struct_pf->print_count++;
-		i++;
-	}
-}
 
 void	ft_treat_u_return(unsigned int nb, t_struct *struct_pf)
 {

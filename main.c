@@ -1,5 +1,5 @@
 #include "ft_printf.h"
-#define PRINT ("%0*.*d}",2,1,8)
+#define PRINT ("%-u}",-11)
 int main(void)
 {
 

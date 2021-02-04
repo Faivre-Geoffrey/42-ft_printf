@@ -98,7 +98,7 @@ void	ft_treat_i(int nb, t_struct *struct_pf)
 	size = ft_strlen(str);
 	max_size_or_num2 = ft_max(size, struct_pf->num2);
 	
-/* 	printf("\nstruct_pf->minus =	%i\n", struct_pf->minus);
+	/* printf("\nstruct_pf->minus =	%i\n", struct_pf->minus);
 	printf("struct_pf->zero =	%i\n", struct_pf->zero);
 	printf("struct_pf->wildcard = 	%i\n", struct_pf->wildcard);
 	printf("struct_pf->point_1 =	%i\n", struct_pf->point_1);
@@ -107,8 +107,8 @@ void	ft_treat_i(int nb, t_struct *struct_pf)
 	printf("struct_pf->num2 = 	%i\n", struct_pf->num2);
 	printf("struct_pf->type = 	%c\n", struct_pf->type);
 	printf("struct_pf->nbisneg = 	%i\n", struct_pf->nbisneg);
-	printf("nb = 			%i\n", nb);
- */
+	printf("nb = 			%i\n", nb); */
+
 	
 	if (struct_pf->nbisneg && struct_pf->point_1 && struct_pf->num2 == -1 && printminus == 0 && nb != -2147483648)
 	{
@@ -118,7 +118,10 @@ void	ft_treat_i(int nb, t_struct *struct_pf)
 		struct_pf->num1++;
 			
 	}
-	if (((struct_pf->nbisneg && struct_pf->point_1 && struct_pf->zero == 0 && printminus ==0) || (struct_pf->nbisneg && struct_pf->point_2 == 0&& struct_pf->zero && printminus ==0)) && nb != -2147483648)
+	if (((struct_pf->nbisneg && struct_pf->point_1 && struct_pf->zero == 0 && printminus ==0)
+		|| (struct_pf->nbisneg && struct_pf->point_2 == 0&& struct_pf->zero && printminus ==0)
+		|| (struct_pf->nbisneg && struct_pf->point_2 && struct_pf->zero && struct_pf->num2 < 0&& printminus ==0))
+		&& nb != -2147483648)
 	{
 		ft_putchar_fd('-', 1);
 		struct_pf->print_count++;
@@ -135,7 +138,7 @@ void	ft_treat_i(int nb, t_struct *struct_pf)
 			ft_putchar_fd(' ',1);
 		else if (struct_pf->point_2 == 1 && struct_pf->zero)
 			ft_putchar_fd(' ',1);
-		else  */if ((struct_pf->point_1 || struct_pf->zero) && ( struct_pf->wildcard &&  struct_pf->num2 ))
+		else  */if ((struct_pf->zero || struct_pf->point_1) && ( struct_pf->wildcard &&  struct_pf->num2 < 0))
 			ft_putchar_fd('0',1);
 		else 
 			ft_putchar_fd(' ',1);
