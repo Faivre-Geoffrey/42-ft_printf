@@ -36,14 +36,7 @@ void	ft_treat_x_return(unsigned int nb, t_struct *struct_pf)
 	printminus = 0;
 	max_size_or_num2 = ft_max(size, struct_pf->num2);
 	
-	if (struct_pf->nbisneg && struct_pf->point_2 )
-	{
-		ft_putchar_fd('-', 1);
-		struct_pf->print_count++;
-		printminus = 1;
-
-	}
-	while (struct_pf->num2 > size )
+while (struct_pf->num2 > size )
 	{
 		 if (struct_pf->point_2 > 0 || struct_pf->zero > 0)
 			ft_putchar_fd('0',1);
@@ -52,25 +45,19 @@ void	ft_treat_x_return(unsigned int nb, t_struct *struct_pf)
 		struct_pf->print_count++;
 		struct_pf->num2--;
 	}
-	if (!(struct_pf->point_2 == 1 && struct_pf->num2 == -1 && nb == 0))
+	if (!((((struct_pf->point_1 == 1 && struct_pf->num1 < 0) || (struct_pf->point_2 == 1 && struct_pf->num2 < 0 && struct_pf->wildcard == 0) )
+			|| (struct_pf->point_2 && struct_pf->wildcard && struct_pf->num2 == 0) ) && nb == 0)
+			|| (struct_pf->point_1 && struct_pf->num1 < 0 && struct_pf->num2 < 0 && struct_pf->wildcard)
+			)
 	{
 		i = ft_printfstr(str, i, struct_pf);
 	}
-	else
+	else if (!(struct_pf->point_1 && nb == 0 && struct_pf->num1 < 0))
 	{
 		ft_putchar_fd(' ',1);
 		struct_pf->print_count++;	
 	}
-	
-	if (struct_pf->minus && struct_pf->num2 > size)
-		i = ft_printfstr(str, i, struct_pf);
-	if (struct_pf->nbisneg > 0 && struct_pf->zero> 0 && printminus == 0)
-	{
-		ft_putchar_fd('-', 1);
-		struct_pf->print_count++;
-		size++;
-	}
-	while (struct_pf->num1 > (max_size_or_num2  + struct_pf->nbisneg))
+	while (struct_pf->num1 > (max_size_or_num2 ))
 	{
 		ft_putchar_fd(' ',1);
 		struct_pf->print_count++;
@@ -89,7 +76,7 @@ void	ft_treat_x(unsigned int nb, t_struct *struct_pf)
 	int printminus;
 	int allprint;
 
-/* 	printf("\nstruct_pf->minus =	%i\n", struct_pf->minus);
+	/* printf("\nstruct_pf->minus =	%i\n", struct_pf->minus);
 	printf("struct_pf->zero =	%i\n", struct_pf->zero);
 	printf("struct_pf->wildcard = 	%i\n", struct_pf->wildcard);
 	printf("struct_pf->point_1 =	%i\n", struct_pf->point_1);
@@ -129,7 +116,8 @@ void	ft_treat_x(unsigned int nb, t_struct *struct_pf)
 	}
 	while (struct_pf->num1 > (int)(max_size_or_num2  + struct_pf->nbisneg))
 	{
-		if (struct_pf->zero == 1 && struct_pf->num1 == 0 && nb == 0)
+		if ((struct_pf->zero == 1 && struct_pf->num1 == 0  && nb == 0)
+		|| (struct_pf->zero == 1 && struct_pf->wildcard && struct_pf->point_2 && struct_pf->num1 > 0 && struct_pf->num2 == -1))
 			ft_putchar_fd('0',1);
 		else if (struct_pf->point_1 == 1 && struct_pf->num1 == 0 && nb == 0)
 			ft_putchar_fd(' ',1);
@@ -142,7 +130,8 @@ void	ft_treat_x(unsigned int nb, t_struct *struct_pf)
 		struct_pf->print_count++;
 		struct_pf->num1--;
 	}
-	if ((struct_pf->minus && struct_pf->num1 > size) && !(struct_pf->point_2 == 1 && struct_pf->num2 && nb == 0))
+	if (((struct_pf->minus && struct_pf->num1 > size) && !(struct_pf->point_2 == 1 && struct_pf->num2 && nb == 0 ))
+	|| (struct_pf->wildcard && ((struct_pf->point_1 && struct_pf->num1 <0) ||  (struct_pf->point_2 && struct_pf->num1 <2)) && struct_pf->num2 != 0&& nb == 0))
 	{
 		i = ft_printfstr(str, i, struct_pf);
 		allprint = 1;
@@ -169,7 +158,7 @@ void	ft_treat_x(unsigned int nb, t_struct *struct_pf)
 	}
 	if (struct_pf->point_1 == 1 && struct_pf->num1 == -1 && nb == 0)
 		return;
-	if (struct_pf->point_2 == 1 && struct_pf->num2 == -1 && nb == 0)
+	if (struct_pf->point_2 == 1 && struct_pf->num2 == -1 && nb == 0 && !allprint)
 	{
 		ft_putchar_fd(' ',1);
 		struct_pf->print_count++;
@@ -177,9 +166,9 @@ void	ft_treat_x(unsigned int nb, t_struct *struct_pf)
 	}
 	if (allprint == 0 && !(nb == 0 && (struct_pf->point_1 || struct_pf->point_2) && (struct_pf->num2 == 0 || struct_pf->num1 == 0)))
 		i = ft_printfstr(str, i, struct_pf);
-	else if (nb == 0 && struct_pf->point_2 && struct_pf->num1)
+	else if (nb == 0 && struct_pf->point_2 && struct_pf->num1&& !allprint)
 	{
 		ft_putchar_fd(' ',1);
 		struct_pf->print_count++;
 	}
-}
+} 

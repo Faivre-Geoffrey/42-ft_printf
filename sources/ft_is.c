@@ -68,18 +68,19 @@ int ft_printfstr(char *str, int i, t_struct *struct_pf)
 }
 
 
-static int		ft_estim(long n)
+static int		ft_estim(unsigned int n)
 {
 	size_t	estim;
 	int		isneg;
+	unsigned int x;
 
 	estim = 0;
 	isneg = 0;
+	x = n;
 	if (n < 0)
 	{
-		estim++;
-		isneg++;
-		n = -n;
+		n = 4294967295 + x; ;
+
 	}
 	while (n >= 1)
 	{
@@ -89,7 +90,7 @@ static int		ft_estim(long n)
 	return (estim);
 }
 
-static char		*ft_gen(char *rtn, long nbr, int len, int isneg)
+static char		*ft_gen(char *rtn, unsigned int nbr, int len, int isneg)
 {
 	if (nbr != 0)
 		rtn = malloc(sizeof(char) * (len + 1));
@@ -120,7 +121,7 @@ char			*ft_itoa_u(unsigned int n)
 {
 	int		len;
 	char	*rtn;
-	long	nbr;
+	unsigned int	nbr;
 	int		isneg;
 
 	nbr = n;
