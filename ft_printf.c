@@ -116,10 +116,6 @@ int ft_make_args(va_list args, char *str, t_struct *struct_pf)
 		}
 		i++;
 	}
-	/* if (!(ft_isdigit(str[i])) && !(ft_istype(str[i])))
-	{
-		return (1);
-	} */
 	while (ft_isdigit(str[i]) && xz[1] == 0)
 	{
 		num_save2[j] = str[i];
