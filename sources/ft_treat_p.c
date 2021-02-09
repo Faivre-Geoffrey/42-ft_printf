@@ -60,7 +60,7 @@ void    ft_putnbr_base_ull(unsigned long nb, char *base)
     }
 }
 
-void	ft_treat_p_return(unsigned long long ull, t_struct *struct_pf)
+void	ft_treat_p_return(unsigned long long ull, t_struct *spf)
 {
 	int size;
 	int max_size_or_num2;
@@ -70,53 +70,53 @@ void	ft_treat_p_return(unsigned long long ull, t_struct *struct_pf)
 	size = ft_countnbr_base_ull(ull, "0123456789abcdef") + 2;
 	if (ull == 0)
 	size = 3; 
-	max_size_or_num2 = ft_max(size, struct_pf->num2);
-	min_size_or_num2 = ft_min(size, struct_pf->num2);
-	if(struct_pf->point_2 == 1 && struct_pf->num2 < struct_pf->num2 && size != 0)
+	max_size_or_num2 = ft_max(size, spf->num2);
+	min_size_or_num2 = ft_min(size, spf->num2);
+	if(spf->point_2 == 1 && spf->num2 < spf->num2 && size != 0)
 	{
 		ft_putstr_fd("0x",1);
 		ft_putnbr_base_ull(ull, "0123456789abcdef");
-		struct_pf->print_count +=  size;
+		spf->print_count +=  size;
 	} 
-	if ((!(struct_pf->point_2 && struct_pf->num1 >= 0)) && size != 0)
+	if ((!(spf->point_2 && spf->num1 >= 0)) && size != 0)
 	{
 		ft_putstr_fd("0x",1);
 		ft_putnbr_base_ull(ull, "0123456789abcdef");
-		struct_pf->print_count +=  size;
+		spf->print_count +=  size;
 	}
-	while (struct_pf->num1 > (min_size_or_num2 ) && struct_pf->point_2  && !(struct_pf->point_1 && size == 0) )
-		ft_space(struct_pf);
-	while (struct_pf->num1 > (max_size_or_num2 ) &&  !(struct_pf->point_1 && size == 0))
-		ft_space(struct_pf);
+	while (spf->num1 > (min_size_or_num2 ) && spf->point_2  && !(spf->point_1 && size == 0) )
+		ft_space(spf);
+	while (spf->num1 > (max_size_or_num2 ) &&  !(spf->point_1 && size == 0))
+		ft_space(spf);
 }
-void	ft_treat_p(unsigned long long ull, t_struct *struct_pf)
+void	ft_treat_p(unsigned long long ull, t_struct *spf)
 {
 	int size;
 	int size_or_num2[2];
 
 	size = 0;
 	size = ft_countnbr_base_ull(ull, "0123456789abcdef");
-	if ((struct_pf->point_1 || struct_pf->point_2)&& struct_pf->num2 == -1)
+	if ((spf->point_1 || spf->point_2)&& spf->num2 == -1)
 	size = 0;
-	size_or_num2[1] = ft_max(size + 2, struct_pf->num2);
-	while (struct_pf->num1 > (size_or_num2[1]) && !(struct_pf->point_1 ))
+	size_or_num2[1] = ft_max(size + 2, spf->num2);
+	while (spf->num1 > (size_or_num2[1]) && !(spf->point_1 ))
 	{
 		ft_putchar_fd(' ', 1);
-		struct_pf->num1--;
-		struct_pf->print_count++;
+		spf->num1--;
+		spf->print_count++;
 	}
 	ft_putstr_fd("0x",1);
-	struct_pf->print_count +=  2;
-	while (struct_pf->num2 > size || (struct_pf->num1 > size && struct_pf->point_1))
+	spf->print_count +=  2;
+	while (spf->num2 > size || (spf->num1 > size && spf->point_1))
 	{
 		ft_putchar_fd('0', 1);
-		struct_pf->num2--;
-		struct_pf->num1--;
-		struct_pf->print_count++;
+		spf->num2--;
+		spf->num1--;
+		spf->print_count++;
 	} 
-	if(!((void *)ull == NULL) || !(struct_pf->point_1 || struct_pf->point_2))
+	if(!((void *)ull == NULL) || !(spf->point_1 || spf->point_2))
 	{
 		ft_putnbr_base_ull(ull, "0123456789abcdef");
-		struct_pf->print_count +=  size;
+		spf->print_count +=  size;
 	}
 }

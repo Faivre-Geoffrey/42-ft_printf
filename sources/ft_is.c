@@ -12,76 +12,71 @@
 
 #include "../ft_printf.h"
 
-int ft_istype(char c)
+int		ft_istype(char c)
 {
-	return (c == 'c' || c == 's' || c == 'p' || c == 'd' || c == 'i' || c == 'u' || c == 'x' || c == 'X' || c == '%');
+	return (c == 'c' || c == 's' || c == 'p' || c == 'd' ||
+	c == 'i' || c == 'u' || c == 'x' || c == 'X' || c == '%');
 }
 
-int ft_isflags(char c)
+int		ft_isflags(char c)
 {
 	return (c == '-' || c == '0' || c == '.' || c == '*');
 }
 
-int ft_max(int a, int b)
+int		ft_max(int a, int b)
 {
 	if (a > b)
 		return (a);
 	return (b);
 }
-int ft_min(int a, int b)
+
+int		ft_min(int a, int b)
 {
 	int x;
+
 	if (a < b)
 		x = a;
-	else 
-	 x = b;
+	else
+		x = b;
 	if (x < 0)
-	x = 0;
+		x = 0;
 	return (x);
 }
 
-void ft_ifisneg(int *nb, t_struct *struct_pf)
+void	ft_ifisneg(int *nb, t_struct *spf)
 {
 	*nb *= -1;
-	struct_pf->nbisneg = 1;
-
-
+	spf->nbisneg = 1;
 }
-void ft_ifisneg_u(unsigned int *nb, t_struct *struct_pf)
+
+void	ft_ifisneg_u(unsigned int *nb, t_struct *spf)
 {
 	*nb *= -1;
-	struct_pf->nbisneg = 1;
-		
-
+	spf->nbisneg = 1;
 }
 
-int ft_printfstr(char *str, int i, t_struct *struct_pf)
+int			ft_printfstr(char *str, int i, t_struct *spf)
 {
 	while (str[i])
 	{
 		ft_putchar_fd(str[i], 1);
-		struct_pf->print_count++;
+		spf->print_count++;
 		i++;
 	}
-
 	return (i);
 }
 
-
 static int		ft_estim(unsigned int n)
 {
-	size_t	estim;
-	int		isneg;
-	unsigned int x;
+	size_t			estim;
+	int				isneg;
+	unsigned int	x;
 
 	estim = 0;
 	isneg = 0;
 	x = n;
 	if (n < 0)
-	{
-		n = 4294967295 + x; ;
-
-	}
+		n = 4294967295 + x;
 	while (n >= 1)
 	{
 		estim++;
@@ -119,10 +114,10 @@ static char		*ft_gen(char *rtn, unsigned int nbr, int len, int isneg)
 
 char			*ft_itoa_u(unsigned int n)
 {
-	int		len;
-	char	*rtn;
+	int				len;
+	char			*rtn;
 	unsigned int	nbr;
-	int		isneg;
+	int				isneg;
 
 	nbr = n;
 	len = ft_estim(nbr);
@@ -149,18 +144,27 @@ int		check_base(char *base)
 			return (0);
 		if (base[i] < 32 || base[i] > 126)
 			return (0);
-		while (base[z])
-		{
+		while (base[z++])
 			if (base[i] == base[z])
 				return (0);
-			z++;
-		}
 		i++;
 	}
 	return (1);
 }
 
-char	*ft_return_nbr_base(unsigned int nbr, char *base,char *str)
+void	ft_nbr_base_add(int *nbr_final, int *i,
+				unsigned int *nbr, int size_base)
+{
+	int x;
+
+	x = *i;
+	nbr_final[x] = *nbr % size_base;
+	x++;
+	*nbr = *nbr / size_base;
+	*i = x;
+}
+
+char	*ft_return_nbr_base(unsigned int nbr, char *base, char *str)
 {
 	int	size_base;
 	int	nbr_final[100];
@@ -180,16 +184,9 @@ char	*ft_return_nbr_base(unsigned int nbr, char *base,char *str)
 		while (base[size_base])
 			size_base++;
 		while (nbr)
-		{
-			nbr_final[i] = nbr % size_base;
-			nbr = nbr / size_base;
-			i++;
-		}
+			ft_nbr_base_add(nbr_final, &i, &nbr, size_base);
 		while (--i >= 0)
-		{
-			str[j] = (base[nbr_final[i]]);
-			j++;
-		}
+			str[j++] = (base[nbr_final[i]]);
 		str[j] = '\0';
 	}
 	return (str);
@@ -197,10 +194,10 @@ char	*ft_return_nbr_base(unsigned int nbr, char *base,char *str)
 
 int	ft_len_base(unsigned int nbr, char *base)
 {
-	int	size_base;
-	int	nbr_final[100];
-	int	i;
-	unsigned int x;
+	int				size_base;
+	int				nbr_final[100];
+	int				i;
+	unsigned int	x;
 
 	i = 0;
 	size_base = 0;
@@ -215,11 +212,7 @@ int	ft_len_base(unsigned int nbr, char *base)
 		while (base[size_base])
 			size_base++;
 		while (nbr)
-		{
-			nbr_final[i] = nbr % size_base;
-			nbr = nbr / size_base;
-			i++;
-		}
+			ft_nbr_base_add(nbr_final, &i, &nbr, size_base);
 		while (--i >= 0)
 			x++;
 	}

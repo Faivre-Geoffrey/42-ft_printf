@@ -1,6 +1,6 @@
 #include "ft_printf.h"
-#define PRINT ("%*.*i}",-2,-2, 2)
-#define PRINT2 ("%*.*i}",-2,2,2)
+#define PRINT ("%*i}", -23)
+#define PRINT2 ("%-*.*i}",-2,5,2)
 
 int main(void)
 {

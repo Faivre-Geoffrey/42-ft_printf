@@ -12,63 +12,63 @@
 
 #include "../ft_printf.h"
 
-void	ft_redirect_to_args_type(va_list args, t_struct *struct_pf)
+void	ft_redirect_to_args_type(va_list args, t_struct *spf)
 {
- 	if (struct_pf->type == 'p')
+ 	if (spf->type == 'p')
 	{
-		if (struct_pf->num1 && struct_pf->num2 && struct_pf->minus)
-			ft_treat_p_return(va_arg(args, unsigned long long), struct_pf);
+		if (spf->num1 && spf->num2 && spf->minus)
+			ft_treat_p_return(va_arg(args, unsigned long long), spf);
 		else 
-			ft_treat_p(va_arg(args, unsigned long long), struct_pf);
+			ft_treat_p(va_arg(args, unsigned long long), spf);
 	}
-	if (struct_pf->type == '%')
+	if (spf->type == '%')
 	{
-		if (struct_pf->num1 && struct_pf->num2 && struct_pf->minus)
-			ft_treat_per_return(struct_pf);
+		if (spf->num1 && spf->num2 && spf->minus)
+			ft_treat_per_return(spf);
 		else
-			ft_treat_per(struct_pf);
+			ft_treat_per(spf);
 	}
-	if (struct_pf->type == 'c')
+	if (spf->type == 'c')
 	{
-		if (struct_pf->num1 && struct_pf->num2 && struct_pf->minus)
-			ft_treat_c_return(va_arg(args, int),struct_pf);
+		if (spf->num1 && spf->num2 && spf->minus)
+			ft_treat_c_return(va_arg(args, int),spf);
 		else
-			ft_treat_c(va_arg(args, int), struct_pf);
+			ft_treat_c(va_arg(args, int), spf);
 	}
-	if (struct_pf->type == 's')
+	if (spf->type == 's')
 	{
 
-		if (struct_pf->num1 && struct_pf->num2 && struct_pf->minus)
-			ft_treat_s_return(va_arg(args, char*), struct_pf);
+		if (spf->num1 && spf->num2 && spf->minus)
+			ft_treat_s_return(va_arg(args, char*), spf);
 		else 
-			ft_treat_s(va_arg(args, char*), struct_pf);
+			ft_treat_s(va_arg(args, char*), spf);
 	}
-	if (struct_pf->type == 'i' || struct_pf->type == 'd')
+	if (spf->type == 'i' || spf->type == 'd')
 	{
-		if ((struct_pf->num1 && struct_pf->num2 && struct_pf->minus) || (struct_pf->num1 && struct_pf->num2 > -1 && struct_pf->minus && struct_pf->wildcard))
-			ft_treat_i_return(va_arg(args, int), struct_pf);
+		if ((spf->num1 && spf->num2 && spf->minus) || (spf->num1 && spf->num2 > -1 && spf->minus && spf->wildcard))
+			ft_treat_i_return(va_arg(args, int), spf);
 		else
-			ft_treat_i(va_arg(args,int), struct_pf);
+			ft_treat_i(va_arg(args,int), spf);
 	}
-	if (struct_pf->type == 'u')
+	if (spf->type == 'u')
 	{
-		if ((struct_pf->num1 && struct_pf->num2 && struct_pf->minus) || (struct_pf->num1 && struct_pf->num2 > -1 && struct_pf->minus && struct_pf->wildcard))
-			ft_treat_u_return(va_arg(args, unsigned int), struct_pf);
+		if ((spf->num1 && spf->num2 && spf->minus) || (spf->num1 && spf->num2 > -1 && spf->minus && spf->wildcard))
+			ft_treat_u_return(va_arg(args, unsigned int), spf);
 		else
-			ft_treat_u(va_arg(args, unsigned int), struct_pf);
+			ft_treat_u(va_arg(args, unsigned int), spf);
 	}
-	if (struct_pf->type == 'x')
+	if (spf->type == 'x')
 	{
-		if ((struct_pf->num1 && struct_pf->num2 && struct_pf->minus) || (struct_pf->num1 && struct_pf->num2 > -1 && struct_pf->minus && struct_pf->wildcard))
-			ft_treat_x_return(va_arg(args, unsigned int), struct_pf);
+		if ((spf->num1 && spf->num2 && spf->minus) || (spf->num1 && spf->num2 > -1 && spf->minus && spf->wildcard))
+			ft_treat_x_return(va_arg(args, unsigned int), spf);
 		else
-			ft_treat_x(va_arg(args, unsigned int), struct_pf);
+			ft_treat_x(va_arg(args, unsigned int), spf);
 	}
-	if (struct_pf->type == 'X')
+	if (spf->type == 'X')
 	{
-		if ((struct_pf->num1 && struct_pf->num2 && struct_pf->minus) || (struct_pf->num1 && struct_pf->num2 > -1 && struct_pf->minus && struct_pf->wildcard))
-			ft_treat_X_return(va_arg(args, unsigned int), struct_pf);
+		if ((spf->num1 && spf->num2 && spf->minus) || (spf->num1 && spf->num2 > -1 && spf->minus && spf->wildcard))
+			ft_treat_X_return(va_arg(args, unsigned int), spf);
 		else
-			ft_treat_X(va_arg(args, unsigned int), struct_pf);
+			ft_treat_X(va_arg(args, unsigned int), spf);
 	}
 }

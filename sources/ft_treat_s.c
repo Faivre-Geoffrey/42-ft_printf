@@ -13,18 +13,18 @@
 #include "../ft_printf.h"
 
 
-void ft_space(t_struct *struct_pf)
+void ft_space(t_struct *spf)
 {
-		if ((struct_pf->point_1 || struct_pf->zero) && !(struct_pf->zero == 1 && struct_pf->minus == 1))
+		if ((spf->point_1 || spf->zero) && !(spf->zero == 1 && spf->minus == 1))
 			ft_putchar_fd('0',1);
 		else 
 			ft_putchar_fd(' ',1);
-		struct_pf->print_count++;
-		struct_pf->num1--;
+		spf->print_count++;
+		spf->num1--;
 
 }
 
-void	ft_treat_s_return(char *str, t_struct *struct_pf)
+void	ft_treat_s_return(char *str, t_struct *spf)
 {
 	int size;
 	int size_or_num2[2];
@@ -34,24 +34,24 @@ void	ft_treat_s_return(char *str, t_struct *struct_pf)
 		str = "(null)";
 	i = 0;
 	size = ft_strlen(str);
-	size_or_num2[0] = ft_min(size, struct_pf->num2);
-	size_or_num2[1] = ft_max(size, struct_pf->num2);
+	size_or_num2[0] = ft_min(size, spf->num2);
+	size_or_num2[1] = ft_max(size, spf->num2);
 	while ( size != 0 && str[i] &&
-		((struct_pf->point_2 && ((struct_pf->num2 && i < struct_pf->num2)))
-		|| (struct_pf->point_2 && struct_pf->wildcard && struct_pf->num2 < 0 && struct_pf->num1)))
+		((spf->point_2 && ((spf->num2 && i < spf->num2)))
+		|| (spf->point_2 && spf->wildcard && spf->num2 < 0 && spf->num1)))
 	{
 		ft_putchar_fd(str[i], 1);
 		i++;
-		struct_pf->print_count++;
+		spf->print_count++;
 	}
-	if (((!(struct_pf->point_2 && struct_pf->num1 >= 0))  &&size != 0)
-	&& !(struct_pf->wildcard && struct_pf->num1 == -1 && (struct_pf->num2 ==  0 || i <= struct_pf->num2)))
-		i = ft_printfstr(str, i, struct_pf);
-	while ((struct_pf->num1 > (size_or_num2[0] ) && struct_pf->point_2  && !(struct_pf->point_1 && size == 0))
-	&&  !(struct_pf->wildcard && struct_pf->num1 && struct_pf->num2 < 0)  && !((struct_pf->point_1 == 1 && struct_pf->minus)))
-		ft_space(struct_pf);
-	while (struct_pf->num1 > (size_or_num2[1] ) && !(struct_pf->point_1 && size == 0)&& !((struct_pf->point_1 == 1 && struct_pf->minus)))
-		ft_space(struct_pf);
+	if (((!(spf->point_2 && spf->num1 >= 0))  &&size != 0)
+	&& !(spf->wildcard && spf->num1 == -1 && (spf->num2 ==  0 || i <= spf->num2)))
+		i = ft_printfstr(str, i, spf);
+	while ((spf->num1 > (size_or_num2[0] ) && spf->point_2  && !(spf->point_1 && size == 0))
+	&&  !(spf->wildcard && spf->num1 && spf->num2 < 0)  && !((spf->point_1 == 1 && spf->minus)))
+		ft_space(spf);
+	while (spf->num1 > (size_or_num2[1] ) && !(spf->point_1 && size == 0)&& !((spf->point_1 == 1 && spf->minus)))
+		ft_space(spf);
 }
 
 
@@ -60,7 +60,7 @@ void	ft_treat_s_return(char *str, t_struct *struct_pf)
 
 
 
-void	ft_treat_s(char *str, t_struct *struct_pf)
+void	ft_treat_s(char *str, t_struct *spf)
 {
 	int size;
 	int size_or_num2[2];
@@ -74,45 +74,45 @@ void	ft_treat_s(char *str, t_struct *struct_pf)
 	allprint = 0;
 	if (!str)
 		str = "(null)";
-	if (struct_pf->point_1 && struct_pf->num1 == 0)
+	if (spf->point_1 && spf->num1 == 0)
 		return ;
 	size = ft_strlen(str);
-	size_or_num2[0] = ft_min(size, struct_pf->num2);
-	size_or_num2[1] = ft_max(size, struct_pf->num2);
-	if (struct_pf->point_1 == 1 && struct_pf->num1 == -1 && !struct_pf->wildcard)
+	size_or_num2[0] = ft_min(size, spf->num2);
+	size_or_num2[1] = ft_max(size, spf->num2);
+	if (spf->point_1 == 1 && spf->num1 == -1 && !spf->wildcard)
 		allprint = 1;
-	while (struct_pf->point_1 && struct_pf->num1 > 0 && str[i] && allprint == 0)
+	while (spf->point_1 && spf->num1 > 0 && str[i] && allprint == 0)
 	{
 		ft_putchar_fd(str[i], 1);
-		struct_pf->print_count++;
-		if (struct_pf->point_1 && struct_pf->num1 > 0)
-			struct_pf->num1--;
+		spf->print_count++;
+		if (spf->point_1 && spf->num1 > 0)
+			spf->num1--;
 		i++;
-		if (!(str[i]) || struct_pf->num1 == 0)
+		if (!(str[i]) || spf->num1 == 0)
 			allprint = 1;
 	}
-	while ((struct_pf->num1 > size_or_num2[0]) && struct_pf->point_2 && !(struct_pf->wildcard  && u == 0 && struct_pf->num2 == -1) )
+	while ((spf->num1 > size_or_num2[0]) && spf->point_2 && !(spf->wildcard  && u == 0 && spf->num2 == -1) )
 	{
-		ft_space(struct_pf);
+		ft_space(spf);
 		u++;
 	}
-	while (struct_pf->num1 > (size_or_num2[1] ) &&  !(struct_pf->point_1 ))
-		ft_space(struct_pf);
-	while (struct_pf->point_2  && ((struct_pf->wildcard && struct_pf->num2 == -1 ) || i < struct_pf->num2)  && allprint == 0 && size != 0)
+	while (spf->num1 > (size_or_num2[1] ) &&  !(spf->point_1 ))
+		ft_space(spf);
+	while (spf->point_2  && ((spf->wildcard && spf->num2 == -1 ) || i < spf->num2)  && allprint == 0 && size != 0)
 	{
 		ft_putchar_fd(str[i], 1);
-		struct_pf->print_count++;
-		if (struct_pf->point_1 && struct_pf->num1 > 0)
-			struct_pf->num1--;
+		spf->print_count++;
+		if (spf->point_1 && spf->num1 > 0)
+			spf->num1--;
 		i++;
-		if (!(str[i]) || i == struct_pf->num2)
+		if (!(str[i]) || i == spf->num2)
 			allprint = 1;
 	}
-	if ((allprint == 0 && !(struct_pf->point_2 && struct_pf->num1 >= 0 )) && !(struct_pf->wildcard && struct_pf->num1 == -1 && (struct_pf->num2 ==  0 || struct_pf->num2 == 1)) && size != 0)
-		i = ft_printfstr(str, i, struct_pf);
-	else if (struct_pf->wildcard && struct_pf->num1 == -1 && (struct_pf->num2 ==  0)) 
+	if ((allprint == 0 && !(spf->point_2 && spf->num1 >= 0 )) && !(spf->wildcard && spf->num1 == -1 && (spf->num2 ==  0 || spf->num2 == 1)) && size != 0)
+		i = ft_printfstr(str, i, spf);
+	else if (spf->wildcard && spf->num1 == -1 && (spf->num2 ==  0)) 
 	{
 	ft_putchar_fd(' ', 1);
-	struct_pf->print_count++;
+	spf->print_count++;
 	}
 }

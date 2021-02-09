@@ -12,35 +12,35 @@
 
 #include "../ft_printf.h"
 
-void	ft_treat_c_return(char c, t_struct *struct_pf)
+void	ft_treat_c_return(char c, t_struct *spf)
 {
 	int max_size_or_num2;
 
-	max_size_or_num2 = ft_max(1, struct_pf->num2);
-	if (!(struct_pf->point_2 == 1 && struct_pf->num2 == -1 ))
+	max_size_or_num2 = ft_max(1, spf->num2);
+	if (!(spf->point_2 == 1 && spf->num2 == -1 ))
 	{
 		ft_putchar_fd(c,1);
-		struct_pf->print_count++;
+		spf->print_count++;
 	}
-	while (struct_pf->num1 > (max_size_or_num2  + struct_pf->nbisneg))
+	while (spf->num1 > (max_size_or_num2  + spf->nbisneg))
 	{
 		ft_putchar_fd(' ',1);
-		struct_pf->print_count++;
-		struct_pf->num1--;
+		spf->print_count++;
+		spf->num1--;
 	}
 }
 
-void	ft_treat_c(char c, t_struct *struct_pf)
+void	ft_treat_c(char c, t_struct *spf)
 {
 	int max_size_or_num2;
 
 
-	max_size_or_num2 = ft_max(1, struct_pf->num2);
-	while (struct_pf->num1 > (max_size_or_num2  + struct_pf->nbisneg))
-		ft_space(struct_pf);
-	if (!((struct_pf->point_1 || struct_pf->point_2) && (struct_pf->num2 == 0 || struct_pf->num1 == 0)))
+	max_size_or_num2 = ft_max(1, spf->num2);
+	while (spf->num1 > (max_size_or_num2  + spf->nbisneg))
+		ft_space(spf);
+	if (!((spf->point_1 || spf->point_2) && (spf->num2 == 0 || spf->num1 == 0)))
 	{
 		ft_putchar_fd(c,1);
-		struct_pf->print_count++;
+		spf->print_count++;
 	}
 }

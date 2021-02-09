@@ -12,49 +12,52 @@
 
 #include "ft_printf.h"
 
-void ft_set_struct(t_struct *struct_pf)
+void	ft_set_struct(t_struct *spf)
 {
-	struct_pf->type = 'a';
-	struct_pf->minus = 0;
-	struct_pf->zero = 0;
-	struct_pf->point_1 = 0;
-	struct_pf->point_2 = 0;
-	struct_pf->wildcard = 0;
-	struct_pf->num1 = -1;
-	struct_pf->num2 = -1;
-	struct_pf->nbisneg = 0;
-
+	spf->type = 'a';
+	spf->minus = 0;
+	spf->zero = 0;
+	spf->point_1 = 0;
+	spf->point_2 = 0;
+	spf->wildcard = 0;
+	spf->num1 = -1;
+	spf->num2 = -1;
+	spf->nbisneg = 0;
 }
 
-void ft_makeflags1(va_list args, t_struct *struct_pf,char c)
+void	ft_makeflags1(va_list args, t_struct *spf, char c, int first_time[0])
 {
 	if (c == '-')
-		struct_pf->minus = 1;
+		spf->minus = 1;
 	if (c == '0')
-		struct_pf->zero = 1;
+		spf->zero = 1;
 	if (c == '.')
-		struct_pf->point_1 = 1;
+		spf->point_1 = 1;
 	if (c == '*')
 	{
-		struct_pf->num1 = va_arg(args, int);
-		struct_pf->wildcard = 1;
+		spf->num1 = va_arg(args, int);
+		spf->wildcard = 1;
+		first_time[0] = 1;
 	}
 }
-void ft_makeflags2(va_list args, t_struct *struct_pf,char c)
+
+void	ft_makeflags2(va_list args, t_struct *spf, char c, int first_time[1])
 {
 	if (c == '-')
-		struct_pf->minus = 1;
+		spf->minus = 1;
 	if (c == '0')
-		struct_pf->zero = 1;
+		spf->zero = 1;
 	if (c == '.')
-		struct_pf->point_2 = 1;
+		spf->point_2 = 1;
 	if (c == '*')
 	{
-		struct_pf->num2 = va_arg(args, int);
-		struct_pf->wildcard = 1;
+		spf->num2 = va_arg(args, int);
+		spf->wildcard = 1;
+		first_time[1] = 1;
 	}
 }
-int ft_strzero(char *str)
+
+int		ft_strzero(char *str)
 {
 	int i;
 
@@ -68,130 +71,117 @@ int ft_strzero(char *str)
 	return (0);
 }
 
-int ft_make_args(va_list args, char *str, t_struct *struct_pf)
+int		ft_atoi_pf(const char *str, int *x)
+{
+	long	i;
+	long	nbr;
+	int		isneg;
+
+	i = 0;
+	nbr = 0;
+	isneg = 0;
+	while (str[i] != '\0' && (str[i] == 32 || str[i] == '\t' || str[i] == '\n'
+			|| str[i] == '\r' || str[i] == '\v' || str[i] == '\f'))
+		i++;
+	if (str[i] != '\0' && str[i] == '-')
+	{
+		isneg = 1;
+		i++;
+	}
+	else if (str[i] == '+')
+		i++;
+	while (str[i] != '\0' && ft_isdigit(str[i]))
+		nbr = (nbr * 10) + (str[i++] - '0');
+	*x += (int)i;
+	if (isneg == 1)
+		return (-nbr);
+	return (nbr);
+}
+
+void	ft_make_args_make_num(t_struct *spf)
+{
+	if (spf->num1 < -1)
+	{
+		spf->num1 *= -1;
+		spf->minus = 1;
+		if (spf->point_1)
+			spf->num1 = -1;
+	}
+	if (spf->num2 < -1)
+	{
+		spf->num2 = -1;
+		spf->point_2 = 0;
+	}
+}
+
+void	ft_set_first_time_to_zero(int first_time[2])
+{
+	first_time[0] = 0;
+	first_time[1] = 0;
+}
+
+int		ft_make_args(va_list args, char *s, t_struct *spf)
 {
 	int i;
 	int j;
 	int g;
-	char num_save1[15];
-	char num_save2[15];
-	int xz[2];
+	int first_time[2];
 
 	i = 1;
 	j = 0;
 	g = 0;
-	xz[0] = 0;
-	xz[1] = 0;
-	ft_memset(num_save1,'\0',14);
-	ft_memset(num_save2,'\0',14);
-	if (!(ft_isdigit(str[i])) && !(ft_isflags(str[i])) && !(ft_istype(str[i])))
-		return (1);
-	while ((ft_isflags(str[i]) && !(str[i] == '0' && str[i - 1] == '.')))
-	{
-		ft_makeflags1(args, struct_pf,str[i]);
-		if (str[i] == '*')
-		{
-			xz[0] = 1;
-			i++;
-			break;
-		}
-		i++;
-	}
-	while (ft_isdigit(str[i]) && xz[0] == 0)
-	{
-		num_save1[g] = str[i];
-		i++;
-		g++;
-		num_save1[g] = '\0';
-		
-	}
-	while ((ft_isflags(str[i]) && !(str[i] == '0' && str[i - 1] == '.')))
-	{
-		ft_makeflags2(args, struct_pf,str[i]);
-		if (str[i] == '*')
-		{
-			xz[1] = 1;
-			i++;
-			break;
-		}
-		i++;
-	}
-	while (ft_isdigit(str[i]) && xz[1] == 0)
-	{
-		num_save2[j] = str[i];
-		i++;
-		j++;
-		num_save2[j] = '\0';
-	}
-	if (!(ft_istype(str[i])))
-		return (1);
-	struct_pf->type = str[i];
-	if (ft_strzero(num_save1))
-		struct_pf->num1 = ft_atoi(num_save1);
-	if (ft_strzero(num_save2))
-	struct_pf->num2 = ft_atoi(num_save2);
-	i++;
-
-	if (struct_pf->num1 < -1)
-	{
-		struct_pf->num1 *= -1;
-		struct_pf->minus = 1;
-		if (struct_pf->point_1)
-		{
-			struct_pf->num1 = -1;
-		}
-	}
-	if (struct_pf->num2 < -1)
-	{
-		struct_pf->num2 = -1;
-		struct_pf->point_2 = 0;
-	}
-	/* printf("\nstruct_pf->minus =	%i\n", struct_pf->minus);
-	printf("struct_pf->zero =	%i\n", struct_pf->zero);
-	printf("struct_pf->point1 =	%i\n", struct_pf->point_1);
-	printf("struct_pf->point2 =	%i\n", struct_pf->point_2);
-	printf("struct_pf->wildcard = 	%i\n", struct_pf->wildcard);
-	printf("struct_pf->num1 = 	%i\n", struct_pf->num1);
-	printf("struct_pf->num2 = 	%i\n", struct_pf->num2);
-	printf("struct_pf->type = 	%c\n", struct_pf->type);  */
-	return (i);
+	ft_set_first_time_to_zero(first_time);
+	while (ft_isflags(s[i]) && !(s[i] == '0' && s[i - 1] == '.') && s[i] != '*')
+		ft_makeflags1(args, spf, s[i++], first_time);
+	if (s[i] == '*')
+		ft_makeflags1(args, spf, s[i++], first_time);
+	if (ft_isdigit(s[i]) && first_time[0] == 0)
+		spf->num1 = ft_atoi_pf(s + i, &i);
+	while (ft_isflags(s[i]) && !(s[i] == '0' && s[i - 1] == '.') && s[i] != '*')
+		ft_makeflags2(args, spf, s[i++], first_time);
+	if (s[i] == '*')
+		ft_makeflags2(args, spf, s[i++], first_time);
+	if (ft_isdigit(s[i]) && first_time[1] == 0)
+		spf->num2 = ft_atoi_pf(s + i, &i);
+	ft_make_args_make_num(spf);
+	if ((spf->type = s[i]) && (ft_istype(s[i])))
+		return (++i);
+	return (1);
 }
 
-void ft_treat_str(char *str, va_list args, t_struct *struct_pf)
+void	ft_treat_str(char *str, va_list args, t_struct *spf)
 {
 	int i;
 
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] == '%' && (i += ft_make_args(args, str + i, struct_pf)))
+		if (str[i] == '%' && (i += ft_make_args(args, str + i, spf)))
 		{
-			ft_redirect_to_args_type(args, struct_pf);
-			ft_set_struct(struct_pf);
+			ft_redirect_to_args_type(args, spf);
+			ft_set_struct(spf);
 		}
 		else
 		{
 			ft_putchar_fd(str[i], 1);
-			struct_pf->print_count++;
+			spf->print_count++;
 			i++;
 		}
 	}
-
 }
 
-int ft_printf(const char *input, ...)
+int		ft_printf(const char *input, ...)
 {
-	t_struct struct_pf;
-	char	*str;
+	t_struct	spf;
+	char		*str;
 	va_list		args;
 
-	ft_set_struct(&struct_pf);
-	struct_pf.print_count = 0;
+	ft_set_struct(&spf);
+	spf.print_count = 0;
 	str = ft_strdup(input);
 	va_start(args, input);
-	ft_treat_str(str ,args ,&struct_pf);
+	ft_treat_str(str, args, &spf);
 	va_end(args);
 	free((char *)str);
-	return (struct_pf.print_count);
+	return (spf.print_count);
 }
-
