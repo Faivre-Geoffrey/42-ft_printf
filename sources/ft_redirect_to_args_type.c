@@ -18,7 +18,7 @@ void	ft_redirect_to_args_type(va_list args, t_struct *spf)
 	{
 		if (spf->num1 && spf->num2 && spf->minus)
 			ft_treat_p_return(va_arg(args, unsigned long long), spf);
-		else 
+		else
 			ft_treat_p(va_arg(args, unsigned long long), spf);
 	}
 	if (spf->type == '%')
@@ -37,11 +37,7 @@ void	ft_redirect_to_args_type(va_list args, t_struct *spf)
 	}
 	if (spf->type == 's')
 	{
-
-		if (spf->num1 && spf->num2 && spf->minus)
-			ft_treat_s_return(va_arg(args, char*), spf);
-		else 
-			ft_treat_s(va_arg(args, char*), spf);
+		ft_first_treat_s(va_arg(args, char*), spf);
 	}
 	if (spf->type == 'i' || spf->type == 'd')
 	{

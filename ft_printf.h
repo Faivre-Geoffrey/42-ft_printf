@@ -6,7 +6,7 @@
 /*   By: gefaivre <gefaivre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/01 13:17:21 by gefaivre          #+#    #+#             */
-/*   Updated: 2021/01/14 11:26:41 by gefaivre         ###   ########.fr       */
+/*   Updated: 2021/02/10 14:28:38 by gefaivre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,13 @@ typedef	struct		s_struct
 	int		num1;
 	int		num2;
 	int		print_count;
+	/*others*/
 	int		nbisneg;
+	int		allprint;
+	int 	i;
+	int		u;
+	int 	nb;
+	int 	size;
 }					t_struct;
 
 int		ft_strzero(char *str);
@@ -53,12 +59,15 @@ char	*ft_itoa_u(unsigned int n);
 int		check_base(char *base);
 char	*ft_return_nbr_base(unsigned int nbr, char *base,char *str);
 int		ft_len_base(unsigned int nbr, char *base);
+void	ft_put_char_count(char c, t_struct *spf);
+void	ft_space(t_struct *spf);
 
 void	ft_redirect_to_args_type(va_list args, t_struct *spf);
 
 void	ft_treat_i(int nb, t_struct *spf);
 void	ft_treat_i_return(int nb, t_struct *spf);
 
+void	ft_first_treat_u(unsigned int nb, t_struct *spf);
 void	ft_treat_u(unsigned int nb, t_struct *spf);
 void	ft_treat_u_return(unsigned int nb, t_struct *spf);
 
@@ -68,8 +77,9 @@ void	ft_treat_x_return(unsigned int nb, t_struct *spf);
 void	ft_treat_X(unsigned int nb, t_struct *spf);
 void	ft_treat_X_return(unsigned int nb, t_struct *spf);
 
-void	ft_treat_s(char *str, t_struct *spf);
-void	ft_treat_s_return(char *str, t_struct *spf);
+void	ft_first_treat_s(char *str, t_struct *spf);
+void	ft_treat_s(char *str, t_struct *spf,int m_m[2], int size);
+void	ft_treat_s_return(char *str, t_struct *spf,int m_m[2], int size);
 
 void	ft_treat_per(t_struct *spf);
 void	ft_treat_per_return(t_struct *spf);

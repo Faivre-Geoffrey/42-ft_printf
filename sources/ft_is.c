@@ -6,7 +6,7 @@
 /*   By: gefaivre <gefaivre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/01 13:29:28 by gefaivre          #+#    #+#             */
-/*   Updated: 2021/01/01 14:10:02 by gefaivre         ###   ########.fr       */
+/*   Updated: 2021/02/10 14:39:04 by gefaivre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,4 +217,20 @@ int	ft_len_base(unsigned int nbr, char *base)
 			x++;
 	}
 	return (x);
+}
+
+void	ft_put_char_count(char c, t_struct *spf)
+{
+	ft_putchar_fd(c, 1);
+	spf->print_count++;
+}
+void ft_space(t_struct *spf)
+{
+		if ((spf->point_1 || spf->zero) && !(spf->zero == 1 && spf->minus == 1))
+			ft_putchar_fd('0',1);
+		else
+			ft_putchar_fd(' ',1);
+		spf->print_count++;
+		spf->num1--;
+
 }
