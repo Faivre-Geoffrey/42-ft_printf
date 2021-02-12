@@ -6,7 +6,7 @@
 /*   By: gefaivre <gefaivre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 08:22:10 by gefaivre          #+#    #+#             */
-/*   Updated: 2021/02/10 14:21:46 by gefaivre         ###   ########.fr       */
+/*   Updated: 2021/02/12 10:49:23 by gefaivre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	ft_set_struct(t_struct *spf)
 	spf->num2 = -1;
 	spf->nbisneg = 0;
 	spf->allprint = 0;
+	spf->printminus = 0;
 	spf->i = 0;
 	spf->u = 0;
 	spf->nb = 0;

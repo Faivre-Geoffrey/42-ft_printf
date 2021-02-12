@@ -6,46 +6,33 @@
 /*   By: gefaivre <gefaivre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/01 13:41:47 by gefaivre          #+#    #+#             */
-/*   Updated: 2021/02/10 14:41:51 by gefaivre         ###   ########.fr       */
+/*   Updated: 2021/02/12 10:33:44 by gefaivre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_printf.h"
 
-void	ft_space_u_return(t_struct *spf)
-{
-	if (spf->point_2 > 0 || spf->zero > 0 || spf->point_1 > 0)
-		ft_putchar_fd('0', 1);
-	else
-		ft_putchar_fd(' ', 1);
-	spf->print_count++;
-	if (spf->point_1)
-		spf->num1--;
-	else
-		spf->num2--;
-}
-
-
-
 void	ft_first_treat_u(unsigned int nb, t_struct *spf)
 {
-	if ((spf->num1 && spf->num2 && spf->minus) || (spf->num1 && spf->num2 > -1
-	&& spf->minus && spf->wildcard))
-		ft_treat_i_return(nb, spf);
-	else
-		ft_treat_i(nb, spf);
-}
-
-void	ft_treat_u_return(unsigned int nb, t_struct *spf)
-{
-	char	*str;
-	int		size;
-	int		max_size_or_num2;
+	char *str;
 
 	str = ft_itoa_u(nb);
-	size = ft_strlen(str);
-	max_size_or_num2 = ft_max(size, spf->num2);
-	while (spf->num2 > size || (spf->point_1 && spf->num1 > size))
+	spf->size = ft_strlen(str);
+	spf->m_m[1] = ft_max(spf->size, spf->num2);
+	if (nb < 0 && (spf->point_1 || spf->zero || spf->point_2 || spf->zero)
+	&& !((spf->num1 && spf->num2 && spf->minus) || (spf->num1 && spf->num2 > -1
+	&& spf->minus && spf->wildcard)))
+		ft_ifisneg_u(&nb, spf);
+	if ((spf->num1 && spf->num2 && spf->minus) || (spf->num1 && spf->num2 > -1
+	&& spf->minus && spf->wildcard))
+		ft_treat_i_return(nb, spf, str);
+	else
+		ft_treat_i(nb, spf, str);
+}
+
+void	ft_treat_u_return(unsigned int nb, t_struct *spf, char *str)
+{
+	while (spf->num2 > spf->size || (spf->point_1 && spf->num1 > spf->size))
 		ft_space_u_return(spf);
 	if (!((((spf->point_1 == 1 && spf->num1 < 0)
 		|| (spf->point_2 == 1 && spf->num2 < 0 && spf->wildcard == 0))
@@ -57,7 +44,7 @@ void	ft_treat_u_return(unsigned int nb, t_struct *spf)
 		ft_putchar_fd(' ', 1);
 		spf->print_count++;
 	}
-	while (spf->num1 > (max_size_or_num2))
+	while (spf->num1 > (spf->m_m[1]))
 	{
 		ft_putchar_fd(' ', 1);
 		spf->print_count++;
@@ -101,34 +88,21 @@ int ft_u_if_1(t_struct *spf, unsigned int nb, int size)
 	|| (spf->point_2 && spf->num1 < 2)) && spf->num2 != 0 && nb == 0));
 }
 
-void	ft_treat_u(unsigned int nb, t_struct *spf)
+void	ft_treat_u(unsigned int nb, t_struct *spf, char *str)
 {
-	char	*str;
-	int		size;
-	int		max_size_or_num2;
-	int		printminus;
-
-	size = 0;
-	printminus = 0;
-	if (nb < 0 && (spf->point_1 || spf->zero || spf->point_2 || spf->zero))
-		ft_ifisneg_u(&nb, spf);
-	str = ft_itoa_u(nb);
-	size = ft_strlen(str);
-	max_size_or_num2 = ft_max(size, spf->num2);
-	while (spf->num1 > (int)(max_size_or_num2 + spf->nbisneg))
+	while (spf->num1 > (int)(spf->m_m[1] + spf->nbisneg))
 		ft_space_u_1(spf, nb);
-	if (ft_u_if_1(spf, nb, size))
+	if (ft_u_if_1(spf, nb, spf->size))
 	{
 		spf->i = ft_printfstr(str, spf->i, spf);
 		spf->allprint = 1;
 	}
-	if (spf->nbisneg && printminus == 0)
+	if (spf->nbisneg)
 	{
 		ft_put_char_count('-', spf);
-		printminus = 1;
-		max_size_or_num2--;
+		spf->m_m[1]--;
 	}
-	while (spf->num2 > size)
+	while (spf->num2 > spf->size)
 		ft_space_u_2(spf, nb);
 	if (spf->point_1 == 1 && spf->num1 == -1 && nb == 0)
 		return ;

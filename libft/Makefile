@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rchallie <rchallie@student.42.fr>          +#+  +:+       +#+         #
+#    By: gefaivre <gefaivre@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/07 11:05:52 by rchallie          #+#    #+#              #
-#    Updated: 2019/11/07 14:41:44 by rchallie         ###   ########.fr        #
+#    Updated: 2021/02/11 10:45:09 by gefaivre         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,8 @@ SRCS = ft_memset.c		\
 	   ft_putchar_fd.c	\
 	   ft_putstr_fd.c	\
 	   ft_putendl_fd.c	\
-	   ft_putnbr_fd.c
+	   ft_putnbr_fd.c	\
+	   ft_putnbr_base.c
 
 SRCSB = ft_lstnew.c			\
 		ft_lstadd_front.c	\
@@ -53,7 +54,7 @@ SRCSB = ft_lstnew.c			\
 		ft_lstclear.c		\
 		ft_lstdelone.c		\
 		ft_lstiter.c		\
-		ft_lstmap.c			
+		ft_lstmap.c
 
 NAME = libft.a
 
@@ -83,5 +84,5 @@ bonus: $(OBJSB)
 	$(CC) $(SRCS) $(SRCSB) $(CC_FLAGS)
 	ar r $(NAME) $(OBJSB)
 
-.PHONY: all clean fclean re 
+.PHONY: all clean fclean re
 

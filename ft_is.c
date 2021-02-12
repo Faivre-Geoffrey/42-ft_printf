@@ -6,7 +6,7 @@
 /*   By: gefaivre <gefaivre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/01 13:29:28 by gefaivre          #+#    #+#             */
-/*   Updated: 2021/02/10 14:39:04 by gefaivre         ###   ########.fr       */
+/*   Updated: 2021/02/11 15:08:10 by gefaivre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	ft_ifisneg_u(unsigned int *nb, t_struct *spf)
 	spf->nbisneg = 1;
 }
 
-int			ft_printfstr(char *str, int i, t_struct *spf)
+int		ft_printfstr(char *str, int i, t_struct *spf)
 {
 	while (str[i])
 	{
@@ -66,7 +66,7 @@ int			ft_printfstr(char *str, int i, t_struct *spf)
 	return (i);
 }
 
-static int		ft_estim(unsigned int n)
+static int	ft_estim(unsigned int n)
 {
 	size_t			estim;
 	int				isneg;
@@ -224,13 +224,14 @@ void	ft_put_char_count(char c, t_struct *spf)
 	ft_putchar_fd(c, 1);
 	spf->print_count++;
 }
-void ft_space(t_struct *spf)
-{
-		if ((spf->point_1 || spf->zero) && !(spf->zero == 1 && spf->minus == 1))
-			ft_putchar_fd('0',1);
-		else
-			ft_putchar_fd(' ',1);
-		spf->print_count++;
-		spf->num1--;
 
+void	ft_space(t_struct *spf)
+{
+	if ((spf->point_1 || spf->zero)
+	&& !(spf->zero == 1 && spf->minus == 1))
+		ft_putchar_fd('0', 1);
+	else
+		ft_putchar_fd(' ', 1);
+	spf->print_count++;
+	spf->num1--;
 }

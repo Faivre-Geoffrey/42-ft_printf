@@ -1,9 +1,11 @@
 #include "ft_printf.h"
-#define PRINT ("%*i}", -23)
-#define PRINT2 ("%-*.*i}",-2,5,2)
+#define PRINT ("%-*p}", 8 ,&str)
+#define PRINT2 ("%-*X}", -1,-22)
 
 int main(void)
 {
+
+	char *str;
 
 
 	ft_printf PRINT;

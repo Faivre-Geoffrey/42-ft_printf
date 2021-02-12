@@ -3,12 +3,17 @@ LIBFT = libft/libft.a
 NAME = libftprintf.a
 
 SRCS =  ft_printf.c \
-			sources/ft_is.c \
+			sources/utils_1.c \
+			sources/utils_2.c \
+			sources/utils_3.c \
+			sources/utils_4.c \
 			sources/ft_redirect_to_args_type.c \
 			sources/ft_treat_c.c \
 			sources/ft_treat_i.c \
+			sources/ft_treat_i_2.c \
 			sources/ft_treat_s.c \
 			sources/ft_treat_u.c \
+			sources/ft_treat_u_2.c \
 			sources/ft_treat_x.c \
 			sources/ft_treat_X1.c \
 			sources/ft_treat_per.c \
@@ -16,12 +21,17 @@ SRCS =  ft_printf.c \
 
 
 SURPL_O = 	ft_printf.o \
-			ft_is.o \
+			utils_1.o \
+			utils_2.o \
+			utils_3.o \
+			utils_4.o \
 			ft_redirect_to_args_type.o \
 			ft_treat_c.o \
 			ft_treat_i.o \
+			ft_treat_i_2.o \
 			ft_treat_s.o \
 			ft_treat_u.o \
+			ft_treat_u_2.o \
 			ft_treat_x.o \
 			ft_treat_X1.o \
 			ft_treat_per.o \
@@ -45,6 +55,7 @@ all : $(NAME)
 clean :
 	rm -rf $(SURPL_O)
 	rm -rf $(OBJS)
+
 
 fclean : clean
 	rm -rf $(NAME)
