@@ -17,5 +17,7 @@ cd ..
 rm -rf pft_2019
 rm -rf 42TESTERS-PRINTF
 rm -rf printf-tester
+rm -rf libft/libft.h.gch
+rm -rf ft_printf.h.gch
 
 norminette -R CheckForbiddenSourceHeader
