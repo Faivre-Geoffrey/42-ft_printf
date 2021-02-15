@@ -6,11 +6,22 @@
 /*   By: gefaivre <gefaivre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/01 13:44:41 by gefaivre          #+#    #+#             */
-/*   Updated: 2021/01/01 13:44:41 by gefaivre         ###   ########.fr       */
+/*   Updated: 2021/02/15 11:22:58 by gefaivre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_printf.h"
+
+
+
+void	ft_first_treat_c(char c, t_struct *spf)
+{
+	if (spf->num1 && spf->num2 && spf->minus)
+			ft_treat_c_return(c, spf);
+		else
+			ft_treat_c(c, spf);
+}
+
 
 void	ft_treat_c_return(char c, t_struct *spf)
 {

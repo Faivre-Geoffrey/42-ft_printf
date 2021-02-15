@@ -6,7 +6,7 @@
 /*   By: gefaivre <gefaivre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/01 13:43:22 by gefaivre          #+#    #+#             */
-/*   Updated: 2021/02/12 13:42:50 by gefaivre         ###   ########.fr       */
+/*   Updated: 2021/02/15 07:50:04 by gefaivre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@ int		ft_countnbr_base_ull(unsigned long nb, char *base)
 	return (x);
 }
 
-
-
 void	ft_putnbr_base_ull(unsigned long nb, char *base)
 {
 	unsigned long	result;
@@ -66,9 +64,9 @@ void	ft_putnbr_base_ull(unsigned long nb, char *base)
 void	ft_first_treat_p(unsigned long nb, t_struct *spf)
 {
 	if (spf->num1 && spf->num2 && spf->minus)
-			ft_treat_p_return(nb, spf);
-		else
-			ft_treat_p(nb, spf);
+		ft_treat_p_return(nb, spf);
+	else
+		ft_treat_p(nb, spf);
 }
 
 void	ft_treat_p_return(unsigned long nb, t_struct *spf)
@@ -90,7 +88,8 @@ void	ft_treat_p_return(unsigned long nb, t_struct *spf)
 		ft_putnbr_base_ull(nb, "0123456789abcdef");
 		spf->print_count += spf->size;
 	}
-	while (spf->num1 > (spf->m_m[0]) && spf->point_2 && !(spf->point_1 && spf->size == 0))
+	while (spf->num1 > (spf->m_m[0]) && spf->point_2
+	&& !(spf->point_1 && spf->size == 0))
 		ft_space(spf);
 	while (spf->num1 > (spf->m_m[1]) && !(spf->point_1 && spf->size == 0))
 		ft_space(spf);
