@@ -14,24 +14,17 @@
 
 int		ft_countnbr_base_ull(unsigned long nb, char *base)
 {
-	unsigned long	result;
 	unsigned long	diviseur;
 	unsigned long	size_base;
 	int				x;
 
 	x = 0;
 	size_base = ft_strlen(base);
-	if (nb < 0)
-	{
-		x++;
-		nb = -nb;
-	}
 	diviseur = 1;
 	while ((nb / diviseur) >= size_base)
 		diviseur = diviseur * size_base;
 	while (diviseur > 0)
 	{
-		result = (nb / diviseur) % size_base;
 		x++;
 		diviseur = diviseur / size_base;
 	}
@@ -45,11 +38,6 @@ void	ft_putnbr_base_ull(unsigned long nb, char *base)
 	unsigned long	size_base;
 
 	size_base = ft_strlen(base);
-	if (nb < 0)
-	{
-		ft_putchar_fd('-', 1);
-		nb = -nb;
-	}
 	diviseur = 1;
 	while ((nb / diviseur) >= size_base)
 		diviseur = diviseur * size_base;
@@ -76,7 +64,7 @@ void	ft_treat_p_return(unsigned long nb, t_struct *spf)
 		spf->size = 3;
 	spf->m_m[0] = ft_min(spf->size, spf->num2);
 	spf->m_m[1] = ft_max(spf->size, spf->num2);
-	if (spf->point_2 == 1 && spf->num2 < spf->num2 && spf->size != 0)
+	if (spf->point_2 == 1 && spf->size != 0)
 	{
 		ft_putstr_fd("0x", 1);
 		ft_putnbr_base_ull(nb, "0123456789abcdef");

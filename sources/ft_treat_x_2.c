@@ -49,11 +49,6 @@ void	ft_putnbr_base_u(unsigned int nbr, char *base, t_struct *spf)
 	size_base = 0;
 	if (check_base_123(base))
 	{
-		if (nbr < 0)
-		{
-			nbr = -nbr;
-			ft_putchar_fd('-', 1);
-		}
 		while (base[size_base])
 			size_base++;
 		while (nbr)

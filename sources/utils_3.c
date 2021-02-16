@@ -60,11 +60,6 @@ char		*ft_return_nbr_base(unsigned int nbr, char *base, char *str)
 	size_base = 0;
 	if (check_base(base))
 	{
-		if (nbr < 0)
-		{
-			nbr = -nbr;
-			str[j] = '-';
-		}
 		while (base[size_base])
 			size_base++;
 		while (nbr)
@@ -88,11 +83,6 @@ int			ft_len_base(unsigned int nbr, char *base)
 	x = 0;
 	if (check_base(base))
 	{
-		if (nbr < 0)
-		{
-			nbr = -nbr;
-			x++;
-		}
 		while (base[size_base])
 			size_base++;
 		while (nbr)

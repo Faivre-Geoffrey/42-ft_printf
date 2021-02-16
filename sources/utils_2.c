@@ -32,14 +32,8 @@ int			ft_printfstr(char *str, int i, t_struct *spf)
 static int	ft_estim(unsigned int n)
 {
 	size_t			estim;
-	int				isneg;
-	unsigned int	x;
 
 	estim = 0;
-	isneg = 0;
-	x = n;
-	if (n < 0)
-		n = 4294967295 + x;
 	while (n >= 1)
 	{
 		estim++;
@@ -57,11 +51,6 @@ static char	*ft_gen(char *rtn, unsigned int nbr, int len, int isneg)
 	if (!rtn)
 		return (0);
 	isneg = 0;
-	if (nbr < 0)
-	{
-		isneg++;
-		nbr = -nbr;
-	}
 	rtn[len] = '\0';
 	while (--len)
 	{

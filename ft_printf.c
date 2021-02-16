@@ -37,13 +37,9 @@ void	ft_set_first_time_to_zero(int first_time[2])
 int		ft_make_args(va_list args, char *s, t_struct *spf)
 {
 	int i;
-	int j;
-	int g;
 	int first_time[2];
 
 	i = 1;
-	j = 0;
-	g = 0;
 	ft_set_first_time_to_zero(first_time);
 	while (ft_isflags(s[i]) && !(s[i] == '0' && s[i - 1] == '.') && s[i] != '*')
 		ft_makeflags1(args, spf, s[i++], first_time);

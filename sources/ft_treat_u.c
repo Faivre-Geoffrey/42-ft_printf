@@ -19,7 +19,7 @@ void	ft_first_treat_u(unsigned int nb, t_struct *spf)
 	str = ft_itoa_u(nb);
 	spf->size = ft_strlen(str);
 	spf->m_m[1] = ft_max(spf->size, spf->num2);
-	if (nb < 0 && (spf->point_1 || spf->zero || spf->point_2 || spf->zero)
+	if ((spf->point_1 || spf->zero || spf->point_2 || spf->zero)
 	&& !((spf->num1 && spf->num2 && spf->minus) || (spf->num1 && spf->num2 > -1
 	&& spf->minus && spf->wildcard)))
 		ft_ifisneg_u(&nb, spf);
