@@ -6,7 +6,7 @@
 /*   By: gefaivre <gefaivre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/01 13:41:47 by gefaivre          #+#    #+#             */
-/*   Updated: 2021/02/15 10:52:19 by gefaivre         ###   ########.fr       */
+/*   Updated: 2021/02/16 09:50:57 by gefaivre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,6 @@ void	ft_first_treat_u(unsigned int nb, t_struct *spf)
 	str = ft_itoa_u(nb);
 	spf->size = ft_strlen(str);
 	spf->m_m[1] = ft_max(spf->size, spf->num2);
-	if ((spf->point_1 || spf->zero || spf->point_2 || spf->zero)
-	&& !((spf->num1 && spf->num2 && spf->minus) || (spf->num1 && spf->num2 > -1
-	&& spf->minus && spf->wildcard)))
-		ft_ifisneg_u(&nb, spf);
 	if ((spf->num1 && spf->num2 && spf->minus) || (spf->num1 && spf->num2 > -1
 	&& spf->minus && spf->wildcard))
 		ft_treat_i_return(nb, spf, str);
