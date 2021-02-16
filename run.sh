@@ -1,3 +1,6 @@
 #!/bin/bash
 
-make re && gcc -Wall -Wextra -Werror main.c libft/libft.a libftprintf.a && make clean && ./a.out
+make re
+clang -Wall -Wextra -Werror main.c libftprintf.a
+make clean
+valgrind ./a.out

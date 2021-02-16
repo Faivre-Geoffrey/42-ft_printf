@@ -54,6 +54,7 @@ void	ft_treat_i_return(int nb, t_struct *spf, char *str)
 		ft_put_char_count(' ', spf);
 		spf->num1--;
 	}
+	free(str);
 }
 
 void	ft_treat_i_2(int nb, t_struct *spf, char *str)
@@ -78,6 +79,7 @@ void	ft_treat_i_2(int nb, t_struct *spf, char *str)
 	|| (spf->point_2 == 1 && spf->num1 == -1 && spf->wildcard == 1))
 	&& !(spf->point_2 == 1 && spf->num2 == -1 && nb == 0 && !(spf->wildcard)))
 		ft_put_char_count(' ', spf);
+	free(str);
 }
 
 void	ft_treat_i(int nb, t_struct *spf, char *str)

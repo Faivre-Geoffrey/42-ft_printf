@@ -3,33 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchallie <rchallie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gefaivre <gefaivre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/10 14:05:40 by rchallie          #+#    #+#             */
-/*   Updated: 2019/10/23 10:54:58 by rchallie         ###   ########.fr       */
+/*   Created: 2020/11/24 15:04:34 by gefaivre          #+#    #+#             */
+/*   Updated: 2020/12/07 08:04:09 by gefaivre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_substr(char const *s, unsigned int start, size_t n)
 {
-	char	*rtn;
 	size_t	i;
+	size_t	j;
+	char	*str;
 
-	if (!s)
+	str = (char*)malloc(sizeof(*s) * (n + 1));
+	if (!str)
 		return (NULL);
-	if ((size_t)start > ft_strlen(s))
-		return (ft_strdup(""));
-	rtn = malloc(sizeof(char) * (len + 1));
 	i = 0;
-	if (!rtn)
-		return (0);
-	while (i < len)
+	j = 0;
+	while (s[i])
 	{
-		rtn[i] = *(s + start + i);
+		if (i >= start && j < n)
+		{
+			str[j] = s[i];
+			j++;
+		}
 		i++;
 	}
-	rtn[i] = '\0';
-	return (rtn);
+	str[j] = 0;
+	return (str);
 }

@@ -3,75 +3,59 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchallie <rchallie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gefaivre <gefaivre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/10 15:29:57 by rchallie          #+#    #+#             */
-/*   Updated: 2019/10/23 10:55:12 by rchallie         ###   ########.fr       */
+/*   Created: 2020/11/25 09:48:32 by gefaivre          #+#    #+#             */
+/*   Updated: 2020/12/07 08:03:48 by gefaivre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int		ft_estim(long n)
+static int	ft_positivator(int nb)
 {
-	size_t	estim;
-	int		isneg;
-
-	estim = 0;
-	isneg = 0;
-	if (n < 0)
-	{
-		estim++;
-		isneg++;
-		n = -n;
-	}
-	while (n >= 1)
-	{
-		estim++;
-		n /= 10;
-	}
-	return (estim);
+	if (nb < 0)
+		return (-nb);
+	else
+		return (nb);
 }
 
-static char		*ft_gen(char *rtn, long nbr, int len, int isneg)
+static void	ft_strrev(char *str)
 {
-	if (nbr != 0)
-		rtn = malloc(sizeof(char) * (len + 1));
-	else
-		return (rtn = ft_strdup("0"));
-	if (!rtn)
-		return (0);
-	isneg = 0;
-	if (nbr < 0)
+	size_t	i;
+	size_t	length;
+	char	tmp;
+
+	i = 0;
+	length = ft_strlen(str);
+	while (i < length / 2)
 	{
-		isneg++;
-		nbr = -nbr;
+		tmp = str[i];
+		str[i] = str[length - i - 1];
+		str[length - i - 1] = tmp;
+		i++;
 	}
-	rtn[len] = '\0';
-	while (--len)
-	{
-		rtn[len] = (nbr % 10) + '0';
-		nbr /= 10;
-	}
-	if (isneg == 1)
-		rtn[0] = '-';
-	else
-		rtn[0] = (nbr % 10) + '0';
-	return (rtn);
 }
 
-char			*ft_itoa(int n)
+char		*ft_itoa(int n)
 {
-	int		len;
-	char	*rtn;
-	long	nbr;
-	int		isneg;
+	char	*str;
+	int		neg;
+	size_t	i;
 
-	nbr = n;
-	len = ft_estim(nbr);
-	rtn = 0;
-	isneg = 0;
-	if (!(rtn = ft_gen(rtn, nbr, len, isneg)))
-		return (0);
-	return (rtn);
+	if (!(str = ft_calloc(12, sizeof(*str))))
+		return (NULL);
+	if (n == 0)
+		str[0] = '0';
+	neg = (n < 0);
+	i = 0;
+	while (n != 0)
+	{
+		str[i++] = '0' + ft_positivator(n % 10);
+		n = (n / 10);
+	}
+	if (neg)
+		str[i] = '-';
+	ft_strrev(str);
+	return (str);
 }
